@@ -26,6 +26,16 @@ app.post('/signup', async (req, res) => {
     res.status(201).json(inserted);
 })
 
+app.post('/signin', async (req, res) => {
+    console.log(req.body);
+    const userDetails = await collection.findOne(req.body);
+    console.log(userDetails);
+    if(userDetails != null)
+    res.status(201).json({ message:"Login Sucess", data:userDetails});
+    else 
+     res.status(401).json({message:"Invalid Credintials"});
+})
+
 app.get('/users', async (req, res) => {
     try {
         const users = await collection.find({}).toArray(); // Get all documents as an array
